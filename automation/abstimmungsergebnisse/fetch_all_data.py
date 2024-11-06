@@ -77,13 +77,13 @@ df_tot['Abstimmungs_Datum'] = pd.to_datetime(df_tot['Abstimmungs_Datum'], format
 df_tot['Abstimmungs_Datum'] = df_tot['Abstimmungs_Datum'].dt.date
 # explicit typecasting for rounding
 df_tot = df_tot.astype({
-    "Stimmbeteiligung (%)": float,
-    "Nein (%)": float,
-    "Ja (%)": float,
+    "Stimmbeteiligung_Prozent": float,
+    "Nein_Prozent": float,
+    "Ja_Prozent": float,
 })
-df_tot["Stimmbeteiligung (%)"] = round(df_tot["Stimmbeteiligung (%)"], 1)
-df_tot["Nein (%)"] = round(df_tot["Nein (%)"], 1)
-df_tot["Ja (%)"] = round(df_tot["Ja (%)"], 1)
+df_tot["Stimmbeteiligung_Prozent"] = round(df_tot["Stimmbeteiligung_Prozent"], 1)
+df_tot["Nein_Prozent"] = round(df_tot["Nein_Prozent"], 1)
+df_tot["Ja_Prozent"] = round(df_tot["Ja_Prozent"], 1)
 
 df_tot.sort_values(by=['Abstimmungs_Datum',"Nr_Politische_Ebene",'Abstimmungs_Text','Nr_Resultat_Gebiet','Nr_Wahlkreis_StZH'], ascending=[False, True, True, True, True], inplace=True)
 
@@ -106,7 +106,7 @@ df_export['Nr_Wahlkreis_StZH'] = df_export['Nr_Wahlkreis_StZH'].astype('Int64')
 csv_path = arguments['--file']
 df_export.to_csv(csv_path, 
                 index = False,
-                encoding="UTF-8-sig",
+                encoding="UTF-8", #"UTF-8-sig",
                 quotechar='"',
                 quoting=2,
 )

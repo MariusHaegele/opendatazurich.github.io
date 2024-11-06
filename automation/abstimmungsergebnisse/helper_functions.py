@@ -109,13 +109,13 @@ def get_rename_dict():
                "Nr_Wahlkreis_StZH":"Nr_Wahlkreis_StZH",
                "Name_Wahlkreis_StZH":"Name_Wahlkreis_StZH",
                "anzahlStimmberechtigte":"Stimmberechtigt",
-               "jaStimmenAbsolut":"Ja",
-               "neinStimmenAbsolut":"Nein",
-               "stimmbeteiligungInProzent":"Stimmbeteiligung (%)",
-               "jaStimmenInProzent":"Ja (%)",
-               "neinStimmenInProzent":"Nein (%)",
-               "StaendeJa":"StaendeJa",
-               "StaendeNein":"StaendeNein",
+               "jaStimmenAbsolut":"Ja_Absolut",
+               "neinStimmenAbsolut":"Nein_Absolut",
+               "stimmbeteiligungInProzent":"Stimmbeteiligung_Prozent",
+               "jaStimmenInProzent":"Ja_Prozent",
+               "neinStimmenInProzent":"Nein_Prozent",
+               "StaendeJa":"Staende_Ja",
+               "StaendeNein":"Staende_Nein",
                 #"url":"url"
     }
 
