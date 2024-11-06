@@ -104,7 +104,7 @@ df_export['Nr_Wahlkreis_StZH'] = df_export['Nr_Wahlkreis_StZH'].astype('Int64')
 
 # writing pdf out as csv
 csv_path = arguments['--file']
-df_export.to_csv(csv_path, 
+df_export.head(100).to_csv(csv_path, 
                 index = False,
                 encoding="UTF-8", #"UTF-8-sig",
                 quotechar='"',
