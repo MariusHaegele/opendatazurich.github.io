@@ -92,18 +92,17 @@ df_tot = df_tot[subset_columns]
 cutoff_date = '2021-12-31'
 hist_cut = get_historical_data('automation/abstimmungsergebnisse/historical_data/Abstimmungsdatenbank.xlsx', cutoff_date)
 
-# subsetting an renaming columns to get the desired col names in output
-df_tot.rename(get_rename_dict_output_table(), axis = 'columns', inplace=True)
-# Subset columns based on dictionary keys (old column names)
-subset_columns = list(get_rename_dict_output_table().values())
-df_tot = df_tot[subset_columns]
-
 # concat with new data
 df_export = pd.concat([
   df_tot[df_tot['Abstimmungs_Datum']>pd.to_datetime(cutoff_date).date()],
   hist_cut,
 ], axis=0)
 
+# subsetting an renaming columns to get the desired col names in output
+df_export.rename(get_rename_dict_output_table(), axis = 'columns', inplace=True)
+# Subset columns based on dictionary keys (old column names)
+subset_columns = list(get_rename_dict_output_table().values())
+df_export = df_export[subset_columns]
 
 # dtypes for csv
 df_export['Nr_Wahlkreis_StZH'] = df_export['Nr_Wahlkreis_StZH'].astype('Int64')
