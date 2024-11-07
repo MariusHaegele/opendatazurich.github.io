@@ -74,7 +74,7 @@ df_tot['abstimmtag'] = df_tot['abstimmtag'].dt.date
 df_tot = df_tot.astype({
     "stimmbeteiligungInProzent": float,
     "neinStimmenInProzent": float,
-    "Ja_Prozent": float,
+    "jaStimmenInProzent": float,
 })
 df_tot["stimmbeteiligungInProzent"] = round(df_tot["stimmbeteiligungInProzent"], 1)
 df_tot["neinStimmenInProzent"] = round(df_tot["neinStimmenInProzent"], 1)
