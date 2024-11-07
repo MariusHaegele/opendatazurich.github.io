@@ -98,7 +98,8 @@ def add_columns_politische_ebene(pandas_data_frame, nr_politische_ebene):
 
 def get_rename_dict():
     """
-    Defining dicitonary with columns from json as keys and output columns as values. Contains all columns in correct order.
+    Defining dicitonary with columns from json as keys and output columns as values for mapping with historical data. 
+    Contains all columns in correct order.
     """
     rename_dict = {"abstimmtag":"Abstimmungs_Datum",
                "Nr_Politische_Ebene":"Nr_Politische_Ebene",
@@ -109,11 +110,37 @@ def get_rename_dict():
                "Nr_Wahlkreis_StZH":"Nr_Wahlkreis_StZH",
                "Name_Wahlkreis_StZH":"Name_Wahlkreis_StZH",
                "anzahlStimmberechtigte":"Stimmberechtigt",
-               "jaStimmenAbsolut":"Ja_Absolut",
-               "neinStimmenAbsolut":"Nein_Absolut",
-               "stimmbeteiligungInProzent":"Stimmbeteiligung_Prozent",
-               "jaStimmenInProzent":"Ja_Prozent",
-               "neinStimmenInProzent":"Nein_Prozent",
+               "jaStimmenAbsolut":"Ja",
+               "neinStimmenAbsolut":"Nein",
+               "stimmbeteiligungInProzent":"Stimmbeteiligung (%)",
+               "jaStimmenInProzent":"Ja (%)",
+               "neinStimmenInProzent":"Nein (%)",
+               "StaendeJa":"StaendeJa",
+               "StaendeNein":"StaendeNein",
+                #"url":"url"
+    }
+
+    return rename_dict
+
+def get_rename_dict_output_table(): 
+    """
+    Defining dicitonary with columns from historical data as keys and output columns as values. 
+    Contains all columns in correct order.
+    """
+    rename_dict = {"Abstimmungs_Datum":"Abstimmungs_Datum",
+               "Nr_Politische_Ebene":"Nr_Politische_Ebene",
+               "Name_Politische_Ebene":"Name_Politische_Ebene",
+               "Abstimmungs_Text":"Abstimmungs_Text",
+               "Nr_Resultat_Gebiet":"Nr_Resultat_Gebiet",
+               "Name_Resultat_Gebiet":"Name_Resultat_Gebiet",
+               "Nr_Wahlkreis_StZH":"Nr_Wahlkreis_StZH",
+               "Name_Wahlkreis_StZH":"Name_Wahlkreis_StZH",
+               "Stimmberechtigt":"Stimmberechtigt",
+               "Ja":"Ja_Absolut",
+               "Nein":"Nein_Absolut",
+               "Stimmbeteiligung (%)":"Stimmbeteiligung_Prozent",
+               "Ja (%)":"Ja_Prozent",
+               "Nein":"Nein_Prozent",
                "StaendeJa":"Staende_Ja",
                "StaendeNein":"Staende_Nein",
                 #"url":"url"

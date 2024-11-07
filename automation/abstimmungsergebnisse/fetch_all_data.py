@@ -64,33 +64,39 @@ df_tot['neinStaendeHalb'] = df_tot['neinStaendeHalb'].apply(lambda x: str(int(x)
 df_tot.loc[df_tot['neinStaendeGanz'] == "", 'StaendeNein'] = ""
 df_tot.loc[df_tot['neinStaendeGanz'] != "", 'StaendeNein'] = df_tot['neinStaendeGanz'] + " " + df_tot['neinStaendeHalb'] + "/2"
 
-# subsetting an renaming columns
-df_tot.rename(get_rename_dict(), axis = 'columns', inplace=True)
 
+
+# format and sort columns
+df_tot['abstimmtag'] = df_tot['abstimmtag'].str.replace('-', '')
+df_tot['abstimmtag'] = pd.to_datetime(df_tot['abstimmtag'], format='%Y%m%d')
+df_tot['abstimmtag'] = df_tot['abstimmtag'].dt.date
+# explicit typecasting for rounding
+df_tot = df_tot.astype({
+    "stimmbeteiligungInProzent": float,
+    "neinStimmenInProzent": float,
+    "Ja_Prozent": float,
+})
+df_tot["stimmbeteiligungInProzent"] = round(df_tot["stimmbeteiligungInProzent"], 1)
+df_tot["neinStimmenInProzent"] = round(df_tot["neinStimmenInProzent"], 1)
+df_tot["jaStimmenInProzent"] = round(df_tot["jaStimmenInProzent"], 1)
+
+df_tot.sort_values(by=['abstimmtag',"Nr_Politische_Ebene",'vorlagenTitel','Nr_Resultat_Gebiet','Nr_Wahlkreis_StZH'], ascending=[False, True, True, True, True], inplace=True)
+
+# subsetting an renaming columns to match the historical data
+df_tot.rename(get_rename_dict(), axis = 'columns', inplace=True)
 # Subset columns based on dictionary keys (old column names)
 subset_columns = list(get_rename_dict().values())
 df_tot = df_tot[subset_columns]
 
-# format and sort columns
-df_tot['Abstimmungs_Datum'] = df_tot['Abstimmungs_Datum'].str.replace('-', '')
-df_tot['Abstimmungs_Datum'] = pd.to_datetime(df_tot['Abstimmungs_Datum'], format='%Y%m%d')
-df_tot['Abstimmungs_Datum'] = df_tot['Abstimmungs_Datum'].dt.date
-# explicit typecasting for rounding
-df_tot = df_tot.astype({
-    "Stimmbeteiligung_Prozent": float,
-    "Nein_Prozent": float,
-    "Ja_Prozent": float,
-})
-df_tot["Stimmbeteiligung_Prozent"] = round(df_tot["Stimmbeteiligung_Prozent"], 1)
-df_tot["Nein_Prozent"] = round(df_tot["Nein_Prozent"], 1)
-df_tot["Ja_Prozent"] = round(df_tot["Ja_Prozent"], 1)
-
-df_tot.sort_values(by=['Abstimmungs_Datum',"Nr_Politische_Ebene",'Abstimmungs_Text','Nr_Resultat_Gebiet','Nr_Wahlkreis_StZH'], ascending=[False, True, True, True, True], inplace=True)
-
-
 # get historical Abstimmungsdaten up to cutoff date
 cutoff_date = '2021-12-31'
 hist_cut = get_historical_data('automation/abstimmungsergebnisse/historical_data/Abstimmungsdatenbank.xlsx', cutoff_date)
+
+# subsetting an renaming columns to get the desired col names in output
+df_tot.rename(get_rename_dict_output_table(), axis = 'columns', inplace=True)
+# Subset columns based on dictionary keys (old column names)
+subset_columns = list(get_rename_dict_output_table().values())
+df_tot = df_tot[subset_columns]
 
 # concat with new data
 df_export = pd.concat([
@@ -106,7 +112,7 @@ df_export['Nr_Wahlkreis_StZH'] = df_export['Nr_Wahlkreis_StZH'].astype('Int64')
 csv_path = arguments['--file']
 df_export.head(100).to_csv(csv_path, 
                 index = False,
-                encoding="UTF-8", #"UTF-8-sig",
+                encoding="UTF-8-sig",
                 quotechar='"',
                 quoting=2,
 )
