@@ -140,7 +140,7 @@ def get_rename_dict_output_table():
                "Nein":"Nein_Absolut",
                "Stimmbeteiligung (%)":"Stimmbeteiligung_Prozent",
                "Ja (%)":"Ja_Prozent",
-               "Nein":"Nein_Prozent",
+               "Nein (%)":"Nein_Prozent",
                "StaendeJa":"Staende_Ja",
                "StaendeNein":"Staende_Nein",
                 #"url":"url"
